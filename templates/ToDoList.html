@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<!-- Has the Jquery and CSS stylesheet includes. Laat line points to JS-->
+    <head> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="../static/js/ToDoList.js?v=18"></script>
+    </head>
+<!--Includes the elements used in the program-->
+    <body>
+        <h1 class="page-header text-center">To Do List Resubmission
+        </h1>
+        <div class="container-fluid">
+            <ul id="todo-list" class="list-group"> 
+            </ul>
+
+            <form onsubmit="return false;">
+                <div class="form-group">
+                    <label for="myInput">Add to list!</label>
+                    <input type="text" name="items" class="form-control" id="myInput" autocomplete="off"
+                             placeholder="What is the next thing to procrastinate on?"> 
+                    <input type="text" name="num" class="form-control" id="num" autocomplete="off"
+                             placeholder="Item Number to Update (Optional)">
+                    <input type="text" name="Search" class="form-control" id="search" autocomplete="off"
+                             placeholder="Search Bar">
+                </div>
+                <button id="btn" class="btn btn-primary">Add Item</button>
+                <button id="clear" class="btn btn-primary">Clear Everything and Drop Session</button>
+                <button id="update" class="btn btn-primary">Update an Item</button>
+            </form>
+        </div>
+    </body>
+</html>
