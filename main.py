@@ -60,19 +60,25 @@ def pushToDB(push):
     db.close()
 
 # Updates a paticular entry in the SQLDatabase
-def updateDB(id, updateTxt):
+def updateDB(ID, updateTxt):
     db = MySQLdb.connect("localhost", "root", "HerpDerp", "dbToDoList")
     cursor = db.cursor()
-    sql = "UPDATE ToDoList SET TODOITEM = '%s'" % (updateTxt) + "WHERE id = '%d'" % (id)
+    sql = "UPDATE ToDoList SET TODOITEM = '%s'" % (updateTxt) + "WHERE id = '%d'" % (ID)
 
-    cursor.execute(sql)
+    #cursor.execute(sql)
+
+    #sql = """"UPDATE ToDoList SET TODOITEM = %s WHERE id = %d""", (updateTxt, id)
+    #sql = """UPDATE tblTableName SET Year=%s, Month=%s, Day=%s, Hour=%s, Minute=%s
+    #WHERE Server=%s""", (Year, Month, Day, Hour, Minute, ServerID))
 
     try:
        # Execute the SQL command
        cursor.execute(sql)
+       print("trying to execute Update SQL")
        # Commit your changes in the database
        db.commit()
     except:
+       print ("Rolling back from Update SQL")
        # Rollback in case there is any error
        db.rollback()
 
@@ -110,13 +116,23 @@ def read():
         return jsonify([])
 
 # Recieves the data from the Ajax request and updates the SQLdatanase
+#auto updates LAST todolist item IF there is NO update number given
 @app.route('/todo/update', methods=['PUT'])
 def update():
     i = int(request.form['index'])
     content = request.form['updateTxt']
     data = session['todolist']
-    data[int(i)] = content
+
+    #print(i)
+    if (i == -1): #if there is no number given, i will be -1 so we have to deal with this
+        i = len(data)
+    else:
+        i = i + 1
+
+    data[i-1] = content
     session['todolist'] = data
+    #print(i)
+    #print(data[i-1])
     updateDB(i, content)
     if 'todolist' in session:
         return jsonify(session['todolist'])
