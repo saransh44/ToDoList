@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, session, jsonify, make_response
 import MySQLdb
+from flask import Flask, render_template, request, session, jsonify, make_response
 
 app = Flask(__name__)
 
@@ -12,7 +12,7 @@ def deleteFromDB(index):
     try:
         cursor.execute(sql)
         db.commit()
-    except:
+    except: 
         db.rollback()
 
     sql = "ALTER TABLE ToDoList drop ID"
